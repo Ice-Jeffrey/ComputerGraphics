@@ -37,16 +37,17 @@ def rotate(points):
 def draw(points):
     # 初始化一个空画布 1000×500 三通道 背景色为白色
     col = 1500
-    row = 800
+    row = 1200
     canvas = np.ones((row, col, 3), dtype="uint8")
     canvas *= 255
     
     # 点集矩阵变形
     points = np.array(points)
     points = points.reshape((-1, 1, 2))
-    cv2.polylines(canvas, pts=[points], isClosed=True,color=(0, 0, 0), thickness=2)
+    cv2.polylines(canvas, pts=[points], isClosed=True, color=(0, 0, 0), thickness=2)
     cv2.imshow("polylines", canvas)
     cv2.waitKey(0)
+    cv2.destroyWindow("polylines")
 
 def main():
     # 输入六边形的六个顶点坐标

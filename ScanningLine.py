@@ -87,7 +87,6 @@ def main():
                 points.append(node.next.x)
             node = node.next
         points = sorted(points)
-        print(points)
         
         #进行涂色
         for i in range(0, len(points), 2):
