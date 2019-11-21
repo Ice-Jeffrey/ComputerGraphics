@@ -5,7 +5,9 @@ from math import *
 def rotate(points):
     #输入旋转点和旋转角度
     x_original, y_original = input("请输入指定点的坐标：").split()
-    theta = int(input("请输入指定的角度："))
+    theta = -int(input("请输入指定的角度："))
+    x_original = (int(x_original) + 750)
+    y_original = 1200 - (int(y_original) + 600)
 
     #初始化旋转矩阵
     rotation_array = np.array([cos(theta), sin(theta), 0, -sin(theta), cos(theta), 0, 0, 0, 1]).reshape(3, 3)
@@ -14,8 +16,8 @@ def rotate(points):
     new_points = []
     for point in points:
         #将该点转换成向量
-        point[0] -= int(x_original)
-        point[1] -= int(y_original)
+        point[0] -= x_original
+        point[1] -= y_original
 
         #坐标转换为齐次坐标
         point.append(1)
@@ -25,8 +27,8 @@ def rotate(points):
 
         #旋转后的向量转化为坐标
         point = list(point)
-        point[0] = int(point[0] + int(x_original))
-        point[1] = int(point[1] + int(x_original))
+        point[0] = int(point[0] + x_original)
+        point[1] = int(point[1] + y_original)
 
         #将齐次坐标变为正常坐标
         point.pop()
@@ -44,7 +46,7 @@ def draw(points):
     # 点集矩阵变形
     points = np.array(points)
     points = points.reshape((-1, 1, 2))
-    cv2.polylines(canvas, pts=[points], isClosed=True, color=(0, 0, 0), thickness=2)
+    cv2.polylines(canvas, pts=[points], isClosed=True, color=[0, 0, 0], thickness=2)
     cv2.imshow("polylines", canvas)
     cv2.waitKey(0)
     cv2.destroyWindow("polylines")
@@ -57,8 +59,8 @@ def main():
     print("请按照x递增的顺序顺时针依次输入六边形六个顶点的坐标：")
     for i in range(6):
         x, y = input().split()
-        x = int(x)
-        y = int(y)
+        x = int(x) + 750
+        y = 600 - int(y)
         if y < ymin:
             ymin = y
         if y > ymax:
